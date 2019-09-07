@@ -100,6 +100,18 @@ page('/vehicles/:id', can('vehicle:read'), function (ctx, next) {
         .render(ctx, next);
 });
 
+page('/vehicles/:id/review', can('vehicle:update'), function (ctx, next) {
+    layout('one-column')
+        .area('#header')
+        .add('admin-client:navigation')
+        //.add('breadcrumb')
+        .area('#middle')
+        .add('vehicles:review', {
+            id: ctx.params.id
+        })
+        .render(ctx, next);
+});
+
 page('/vehicles/:id/edit', can('vehicle:update'), function (ctx, next) {
     layout('one-column')
         .area('#header')
