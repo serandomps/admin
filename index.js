@@ -79,6 +79,16 @@ page('/vehicles', function (ctx, next) {
         .render(ctx, next);
 });
 
+page('/contacts', function (ctx, next) {
+    layout('one-column')
+        .area('#header')
+        .add('admin-client:navigation')
+        //.add('breadcrumb')
+        .area('#middle')
+        .add('admin-client:contacts', {query: ctx.query})
+        .render(ctx, next);
+});
+
 page('/create-vehicles', can('vehicle:create'), function (ctx, next) {
     layout('one-column')
         .area('#header')
@@ -95,6 +105,18 @@ page('/vehicles/:id', can('vehicle:read'), function (ctx, next) {
         //.add('breadcrumb')
         .area('#middle')
         .add('vehicles:findone', {
+            id: ctx.params.id
+        })
+        .render(ctx, next);
+});
+
+page('/contacts/:id/review', can('vehicle:read'), function (ctx, next) {
+    layout('one-column')
+        .area('#header')
+        .add('admin-client:navigation')
+        //.add('breadcrumb')
+        .area('#middle')
+        .add('contacts:review', {
             id: ctx.params.id
         })
         .render(ctx, next);
@@ -119,6 +141,18 @@ page('/vehicles/:id/edit', can('vehicle:update'), function (ctx, next) {
         //.add('breadcrumb')
         .area('#middle')
         .add('vehicles:create', {
+            id: ctx.params.id
+        })
+        .render(ctx, next);
+});
+
+page('/contacts/:id/edit', can('vehicle:update'), function (ctx, next) {
+    layout('one-column')
+        .area('#header')
+        .add('admin-client:navigation')
+        //.add('breadcrumb')
+        .area('#middle')
+        .add('contacts:create', {
             id: ctx.params.id
         })
         .render(ctx, next);
