@@ -15,6 +15,7 @@
         "serandomps/contacts": "master",
         "serandomps/breadcrumb": "master",
         "serandomps/navigation": "master",
+        "serandomps/footer": "master",
         "serandomps/upload": "master"
     },
     "scripts": [
