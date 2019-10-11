@@ -69,7 +69,25 @@ page('/', function (ctx, next) {
         .render(ctx, next);
 });
 
-page('/vehicles', function (ctx, next) {
+page('/transits/:id', function (ctx, next) {
+    layout('one-column')
+        .area('#header')
+        .add('admin-client:navigation')
+        //.add('breadcrumb')
+        .area('#middle')
+        .add('admin-client:transits', {
+            id: ctx.params.id,
+            domain: ctx.query.domain,
+            model: ctx.query.model,
+            status: ctx.query.status,
+            location: ctx.query.location
+        })
+        .area('#footer')
+        .add('footer')
+        .render(ctx, next);
+});
+
+page('/manage-vehicles', function (ctx, next) {
     layout('one-column')
         .area('#header')
         .add('admin-client:navigation')
@@ -81,7 +99,7 @@ page('/vehicles', function (ctx, next) {
         .render(ctx, next);
 });
 
-page('/contacts', function (ctx, next) {
+page('/manage-contacts', function (ctx, next) {
     layout('one-column')
         .area('#header')
         .add('admin-client:navigation')
@@ -93,12 +111,13 @@ page('/contacts', function (ctx, next) {
         .render(ctx, next);
 });
 
-page('/create-vehicles', can('vehicle:create'), function (ctx, next) {
+page('/manage-locations', function (ctx, next) {
     layout('one-column')
         .area('#header')
         .add('admin-client:navigation')
+        //.add('breadcrumb')
         .area('#middle')
-        .add('vehicles:create')
+        .add('admin-client:locations', {query: ctx.query})
         .area('#footer')
         .add('footer')
         .render(ctx, next);
@@ -182,6 +201,141 @@ page('/vehicles/:id/delete', can('vehicle:update'), function (ctx, next) {
         .area('#middle')
         .add('vehicles:remove', {
             id: ctx.params.id
+        })
+        .area('#footer')
+        .add('footer')
+        .render(ctx, next);
+});
+
+page('/create-configs', function (ctx, next) {
+    layout('one-column')
+        .area('#header')
+        .add('admin-client:navigation')
+        .area('#middle')
+        .add('configs:create', {title: 'Create Configs', location: '/manage-configs'})
+        .area('#footer')
+        .add('footer')
+        .render(ctx, next);
+});
+
+page('/manage-configs', function (ctx, next) {
+    layout('one-column')
+        .area('#header')
+        .add('admin-client:navigation')
+        //.add('breadcrumb')
+        .area('#middle')
+        .add('admin-client:configs', {query: ctx.query})
+        .area('#footer')
+        .add('footer')
+        .render(ctx, next);
+});
+
+page('/configs/:id', function (ctx, next) {
+    layout('one-column')
+        .area('#header')
+        .add('admin-client:navigation')
+        //.add('breadcrumb')
+        .area('#middle')
+        .add('configs:findone', {
+            id: ctx.params.id,
+            location: '/manage-configs'
+        })
+        .area('#footer')
+        .add('footer')
+        .render(ctx, next);
+});
+
+page('/configs/:id/edit', function (ctx, next) {
+    layout('one-column')
+        .area('#header')
+        .add('admin-client:navigation')
+        //.add('breadcrumb')
+        .area('#middle')
+        .add('configs:create', {
+            id: ctx.params.id,
+            location: '/manage-configs'
+        })
+        .area('#footer')
+        .add('footer')
+        .render(ctx, next);
+});
+
+page('/configs/:id/review', function (ctx, next) {
+    layout('one-column')
+        .area('#header')
+        .add('admin-client:navigation')
+        //.add('breadcrumb')
+        .area('#middle')
+        .add('configs:review', {
+            id: ctx.params.id,
+            location: '/manage-configs'
+        })
+        .area('#footer')
+        .add('footer')
+        .render(ctx, next);
+});
+
+page('/create-pages', function (ctx, next) {
+    layout('one-column')
+        .area('#header')
+        .add('admin-client:navigation')
+        .area('#middle')
+        .add('pages:create', {title: 'Create Pages', location: '/manage-pages'})
+        .area('#footer')
+        .add('footer')
+        .render(ctx, next);
+});
+
+page('/manage-pages', function (ctx, next) {
+    layout('one-column')
+        .area('#header')
+        .add('admin-client:navigation')
+        //.add('breadcrumb')
+        .area('#middle')
+        .add('admin-client:pages', {query: ctx.query})
+        .area('#footer')
+        .add('footer')
+        .render(ctx, next);
+});
+
+page('/pages/:id', function (ctx, next) {
+    layout('one-column')
+        .area('#header')
+        .add('admin-client:navigation')
+        //.add('breadcrumb')
+        .area('#middle')
+        .add('pages:findone', {
+            id: ctx.params.id
+        })
+        .area('#footer')
+        .add('footer')
+        .render(ctx, next);
+});
+
+page('/pages/:id/edit', function (ctx, next) {
+    layout('one-column')
+        .area('#header')
+        .add('admin-client:navigation')
+        //.add('breadcrumb')
+        .area('#middle')
+        .add('pages:create', {
+            id: ctx.params.id,
+            location: '/manage-pages'
+        })
+        .area('#footer')
+        .add('footer')
+        .render(ctx, next);
+});
+
+page('/pages/:id/review', function (ctx, next) {
+    layout('one-column')
+        .area('#header')
+        .add('admin-client:navigation')
+        //.add('breadcrumb')
+        .area('#middle')
+        .add('pages:review', {
+            id: ctx.params.id,
+            location: '/manage-pages'
         })
         .area('#footer')
         .add('footer')
