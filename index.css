@@ -8,11 +8,6 @@
     padding-top: 70px;
 }
 
-body, h1, h2, h3, h4, h5, h6 {
-    /*background-color: #2F2F2F;*/
-    font-family: "Oxygen", Helvetica, Arial, sans-serif;
-}
-
 a:active, a:hover {
     outline: 0 none;
 }
