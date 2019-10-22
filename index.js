@@ -123,7 +123,7 @@ page('/manage-locations', function (ctx, next) {
         .render(ctx, next);
 });
 
-page('/vehicles/:id', can('vehicle:read'), function (ctx, next) {
+page('/vehicles/:id', function (ctx, next) {
     layout('one-column')
         .area('#header')
         .add('admin-client:navigation')
@@ -137,13 +137,13 @@ page('/vehicles/:id', can('vehicle:read'), function (ctx, next) {
         .render(ctx, next);
 });
 
-page('/contacts/:id/review', can('vehicle:read'), function (ctx, next) {
+page('/contacts/:id/review', function (ctx, next) {
     layout('one-column')
         .area('#header')
         .add('admin-client:navigation')
         //.add('breadcrumb')
         .area('#middle')
-        .add('contacts:review', {
+        .add('admin-client:contacts-review', {
             id: ctx.params.id
         })
         .area('#footer')
@@ -157,7 +157,7 @@ page('/vehicles/:id/review', can('vehicle:update'), function (ctx, next) {
         .add('admin-client:navigation')
         //.add('breadcrumb')
         .area('#middle')
-        .add('vehicles:review', {
+        .add('admin-client:vehicles-review', {
             id: ctx.params.id
         })
         .area('#footer')
