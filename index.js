@@ -151,6 +151,20 @@ page('/contacts/:id/review', function (ctx, next) {
         .render(ctx, next);
 });
 
+page('/locations/:id/review', function (ctx, next) {
+    layout('one-column')
+        .area('#header')
+        .add('admin-client:navigation')
+        //.add('breadcrumb')
+        .area('#middle')
+        .add('admin-client:locations-review', {
+            id: ctx.params.id
+        })
+        .area('#footer')
+        .add('footer')
+        .render(ctx, next);
+});
+
 page('/vehicles/:id/review', can('vehicle:update'), function (ctx, next) {
     layout('one-column')
         .area('#header')
