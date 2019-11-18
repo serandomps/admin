@@ -27,11 +27,6 @@ var can = function (permission) {
     };
 };
 
-page(function (ctx, next) {
-    utils.loading();
-    next();
-});
-
 page('/signin', auth.signin);
 
 page('/signup', function (ctx, next) {
@@ -111,6 +106,20 @@ page('/manage-contacts', function (ctx, next) {
         .render(ctx, next);
 });
 
+page('/contacts/:id/edit', function (ctx, next) {
+    layout('one-column')
+        .area('#header')
+        .add('admin-client:navigation')
+        .area('#middle')
+        .add('contacts:create', {
+            id: ctx.params.id,
+            location: '/manage-contacts'
+        })
+        .area('#footer')
+        .add('footer')
+        .render(ctx, next);
+});
+
 page('/manage-locations', function (ctx, next) {
     layout('one-column')
         .area('#header')
@@ -123,6 +132,20 @@ page('/manage-locations', function (ctx, next) {
         .render(ctx, next);
 });
 
+page('/locations/:id/edit', function (ctx, next) {
+    layout('one-column')
+        .area('#header')
+        .add('admin-client:navigation')
+        .area('#middle')
+        .add('locations:create', {
+            id: ctx.params.id,
+            location: '/manage-locations'
+        })
+        .area('#footer')
+        .add('footer')
+        .render(ctx, next);
+});
+
 page('/vehicles/:id', function (ctx, next) {
     layout('one-column')
         .area('#header')
@@ -130,7 +153,8 @@ page('/vehicles/:id', function (ctx, next) {
         //.add('breadcrumb')
         .area('#middle')
         .add('vehicles:findone', {
-            id: ctx.params.id
+            id: ctx.params.id,
+            privileged: true
         })
         .area('#footer')
         .add('footer')

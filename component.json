@@ -13,6 +13,7 @@
         "serandomps/admin-client": "master",
         "serandomps/vehicles": "master",
         "serandomps/contacts": "master",
+        "serandomps/locations": "master",
         "serandomps/pages": "master",
         "serandomps/configs": "master",
         "serandomps/breadcrumb": "master",
