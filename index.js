@@ -394,10 +394,8 @@ page('/mine', can('user'), function (ctx, next) {
 //TODO: redirect user to login page when authentication is needed
 //TODO: basically a front controller pattern
 utils.on('user', 'login', function (path) {
-    var ctx;
     if (!path) {
-        ctx = serand.current();
-        path = ctx.path;
+        path = serand.path();
     }
     serand.store('state', {
         path: path
