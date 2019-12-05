@@ -55,10 +55,10 @@ page('/', function (ctx, next) {
         .add('admin-client:navigation')
         //.add('breadcrumb')
         .area('#right')
-        .add('vehicles:recent')
+        .add('model-vehicles:recent')
         .area('#middle')
         .add('admin-client:home')
-        .add('vehicles:featured')
+        .add('model-vehicles:featured')
         .area('#footer')
         .add('footer')
         .render(ctx, next);
@@ -94,6 +94,18 @@ page('/manage-vehicles', function (ctx, next) {
         .render(ctx, next);
 });
 
+page('/manage-realestates', function (ctx, next) {
+    layout('one-column')
+        .area('#header')
+        .add('admin-client:navigation')
+        //.add('breadcrumb')
+        .area('#middle')
+        .add('admin-client:realestates', {query: ctx.query})
+        .area('#footer')
+        .add('footer')
+        .render(ctx, next);
+});
+
 page('/manage-contacts', function (ctx, next) {
     layout('one-column')
         .area('#header')
@@ -111,7 +123,7 @@ page('/contacts/:id/edit', function (ctx, next) {
         .area('#header')
         .add('admin-client:navigation')
         .area('#middle')
-        .add('contacts:create', {
+        .add('model-contacts:create', {
             id: ctx.params.id,
             location: '/manage-contacts'
         })
@@ -137,7 +149,7 @@ page('/locations/:id/edit', function (ctx, next) {
         .area('#header')
         .add('admin-client:navigation')
         .area('#middle')
-        .add('locations:create', {
+        .add('model-locations:create', {
             id: ctx.params.id,
             location: '/manage-locations'
         })
@@ -152,7 +164,22 @@ page('/vehicles/:id', function (ctx, next) {
         .add('admin-client:navigation')
         //.add('breadcrumb')
         .area('#middle')
-        .add('vehicles:findone', {
+        .add('model-vehicles:findone', {
+            id: ctx.params.id,
+            privileged: true
+        })
+        .area('#footer')
+        .add('footer')
+        .render(ctx, next);
+});
+
+page('/realestates/:id', function (ctx, next) {
+    layout('one-column')
+        .area('#header')
+        .add('admin-client:navigation')
+        //.add('breadcrumb')
+        .area('#middle')
+        .add('model-realestates:findone', {
             id: ctx.params.id,
             privileged: true
         })
@@ -189,7 +216,7 @@ page('/locations/:id/review', function (ctx, next) {
         .render(ctx, next);
 });
 
-page('/vehicles/:id/review', can('vehicle:update'), function (ctx, next) {
+page('/vehicles/:id/review', function (ctx, next) {
     layout('one-column')
         .area('#header')
         .add('admin-client:navigation')
@@ -203,13 +230,13 @@ page('/vehicles/:id/review', can('vehicle:update'), function (ctx, next) {
         .render(ctx, next);
 });
 
-page('/vehicles/:id/edit', can('vehicle:update'), function (ctx, next) {
+page('/realestates/:id/review', function (ctx, next) {
     layout('one-column')
         .area('#header')
         .add('admin-client:navigation')
         //.add('breadcrumb')
         .area('#middle')
-        .add('vehicles:create', {
+        .add('admin-client:realestates-review', {
             id: ctx.params.id
         })
         .area('#footer')
@@ -217,13 +244,13 @@ page('/vehicles/:id/edit', can('vehicle:update'), function (ctx, next) {
         .render(ctx, next);
 });
 
-page('/contacts/:id/edit', can('vehicle:update'), function (ctx, next) {
+page('/vehicles/:id/edit', function (ctx, next) {
     layout('one-column')
         .area('#header')
         .add('admin-client:navigation')
         //.add('breadcrumb')
         .area('#middle')
-        .add('contacts:create', {
+        .add('model-vehicles:create', {
             id: ctx.params.id
         })
         .area('#footer')
@@ -231,13 +258,55 @@ page('/contacts/:id/edit', can('vehicle:update'), function (ctx, next) {
         .render(ctx, next);
 });
 
-page('/vehicles/:id/delete', can('vehicle:update'), function (ctx, next) {
+page('/realestates/:id/edit', function (ctx, next) {
     layout('one-column')
         .area('#header')
         .add('admin-client:navigation')
         //.add('breadcrumb')
         .area('#middle')
-        .add('vehicles:remove', {
+        .add('model-realestates:create', {
+            id: ctx.params.id
+        })
+        .area('#footer')
+        .add('footer')
+        .render(ctx, next);
+});
+
+page('/contacts/:id/edit', function (ctx, next) {
+    layout('one-column')
+        .area('#header')
+        .add('admin-client:navigation')
+        //.add('breadcrumb')
+        .area('#middle')
+        .add('model-contacts:create', {
+            id: ctx.params.id
+        })
+        .area('#footer')
+        .add('footer')
+        .render(ctx, next);
+});
+
+page('/vehicles/:id/delete', function (ctx, next) {
+    layout('one-column')
+        .area('#header')
+        .add('admin-client:navigation')
+        //.add('breadcrumb')
+        .area('#middle')
+        .add('model-vehicles:remove', {
+            id: ctx.params.id
+        })
+        .area('#footer')
+        .add('footer')
+        .render(ctx, next);
+});
+
+page('/realestates/:id/delete', function (ctx, next) {
+    layout('one-column')
+        .area('#header')
+        .add('admin-client:navigation')
+        //.add('breadcrumb')
+        .area('#middle')
+        .add('model-realestates:remove', {
             id: ctx.params.id
         })
         .area('#footer')
@@ -250,7 +319,7 @@ page('/create-configs', function (ctx, next) {
         .area('#header')
         .add('admin-client:navigation')
         .area('#middle')
-        .add('configs:create', {title: 'Create Configs', location: '/manage-configs'})
+        .add('model-configs:create', {title: 'Create Configs', location: '/manage-configs'})
         .area('#footer')
         .add('footer')
         .render(ctx, next);
@@ -274,7 +343,7 @@ page('/configs/:id', function (ctx, next) {
         .add('admin-client:navigation')
         //.add('breadcrumb')
         .area('#middle')
-        .add('configs:findone', {
+        .add('model-configs:findone', {
             id: ctx.params.id,
             location: '/manage-configs'
         })
@@ -289,7 +358,7 @@ page('/configs/:id/edit', function (ctx, next) {
         .add('admin-client:navigation')
         //.add('breadcrumb')
         .area('#middle')
-        .add('configs:create', {
+        .add('model-configs:create', {
             id: ctx.params.id,
             location: '/manage-configs'
         })
@@ -304,7 +373,7 @@ page('/configs/:id/review', function (ctx, next) {
         .add('admin-client:navigation')
         //.add('breadcrumb')
         .area('#middle')
-        .add('configs:review', {
+        .add('model-configs:review', {
             id: ctx.params.id,
             location: '/manage-configs'
         })
@@ -318,7 +387,7 @@ page('/create-pages', function (ctx, next) {
         .area('#header')
         .add('admin-client:navigation')
         .area('#middle')
-        .add('pages:create', {title: 'Create Pages', location: '/manage-pages'})
+        .add('model-pages:create', {title: 'Create Pages', location: '/manage-pages'})
         .area('#footer')
         .add('footer')
         .render(ctx, next);
@@ -342,7 +411,7 @@ page('/pages/:id', function (ctx, next) {
         .add('admin-client:navigation')
         //.add('breadcrumb')
         .area('#middle')
-        .add('pages:findone', {
+        .add('model-pages:findone', {
             id: ctx.params.id
         })
         .area('#footer')
@@ -356,7 +425,7 @@ page('/pages/:id/edit', function (ctx, next) {
         .add('admin-client:navigation')
         //.add('breadcrumb')
         .area('#middle')
-        .add('pages:create', {
+        .add('model-pages:create', {
             id: ctx.params.id,
             location: '/manage-pages'
         })
@@ -371,21 +440,10 @@ page('/pages/:id/review', function (ctx, next) {
         .add('admin-client:navigation')
         //.add('breadcrumb')
         .area('#middle')
-        .add('pages:review', {
+        .add('model-pages:review', {
             id: ctx.params.id,
             location: '/manage-pages'
         })
-        .area('#footer')
-        .add('footer')
-        .render(ctx, next);
-});
-
-page('/mine', can('user'), function (ctx, next) {
-    layout('one-column')
-        .area('#header')
-        .add('admin-client:navigation')
-        .area('#middle')
-        .add('vehicles:mine')
         .area('#footer')
         .add('footer')
         .render(ctx, next);
