@@ -405,6 +405,32 @@ page('/manage-pages', function (ctx, next) {
         .render(ctx, next);
 });
 
+page('/manage-messages', function (ctx, next) {
+    layout('one-column')
+        .area('#header')
+        .add('admin-client:navigation')
+        //.add('breadcrumb')
+        .area('#middle')
+        .add('admin-client:messages', {query: ctx.query})
+        .area('#footer')
+        .add('footer')
+        .render(ctx, next);
+});
+
+page('/messages/:id', function (ctx, next) {
+    layout('one-column')
+        .area('#header')
+        .add('admin-client:navigation')
+        //.add('breadcrumb')
+        .area('#middle')
+        .add('model-messages:findone', {
+            id: ctx.params.id
+        })
+        .area('#footer')
+        .add('footer')
+        .render(ctx, next);
+});
+
 page('/pages/:id', function (ctx, next) {
     layout('one-column')
         .area('#header')
