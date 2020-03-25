@@ -73,6 +73,7 @@ page('/transits/:id', function (ctx, next) {
         .add('admin-client:transits', {
             id: ctx.params.id,
             domain: ctx.query.domain,
+            workflow: ctx.query.workflow,
             model: ctx.query.model,
             status: ctx.query.status,
             location: ctx.query.location
