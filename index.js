@@ -29,11 +29,6 @@ var can = function (permission) {
 
 page('/signin', auth.signin);
 
-page('/signup', function (ctx, next) {
-    var query = ctx.query | {};
-    utils.emit('user', 'login', query.dest || '/');
-});
-
 page('/auth', function (ctx, next) {
     var el = $('#content');
     var o = {
