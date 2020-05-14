@@ -23,8 +23,7 @@
         "serandomps/footer": "master"
     },
     "scripts": [
-        "index.js",
-        "controllers/auth.js"
+        "index.js"
     ],
     "styles": [
         "nunito.css",

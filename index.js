@@ -3,6 +3,7 @@ var dust = require('dust')();
 var serand = require('serand');
 var utils = require('utils');
 var uready = require('uready');
+var auth = require('auth');
 var page = serand.page;
 var redirect = serand.redirect;
 var current = serand.current;
@@ -16,8 +17,6 @@ var layout = serand.layout(app);
 
 var loginUri = utils.resolve('admin:///auth');
 
-var auth = require('./controllers/auth');
-
 var can = function (permission) {
     return function (ctx, next) {
         if (ctx.token) {
@@ -27,7 +26,9 @@ var can = function (permission) {
     };
 };
 
-page('/signin', auth.signin);
+page('/signin', auth.signin({
+    loginUri: loginUri
+}));
 
 page('/auth', function (ctx, next) {
     var el = $('#content');
@@ -477,7 +478,7 @@ utils.on('user', 'login', function (path) {
     if (!path) {
         path = serand.path();
     }
-    serand.store('state', {
+    serand.persist('state', {
         path: path
     });
     utils.emit('user', 'authenticator', {
@@ -489,12 +490,12 @@ utils.on('user', 'login', function (path) {
 });
 
 utils.on('user', 'logged in', function (usr) {
-    var state = serand.store('state', null);
+    var state = serand.persist('state', null);
     redirect(state && state.path || '/');
 });
 
 utils.on('user', 'logged out', function (usr) {
-    var state = serand.store('state', null);
+    var state = serand.persist('state', null);
     redirect(state && state.path || '/');
 });
 
