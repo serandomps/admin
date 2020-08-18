@@ -408,7 +408,7 @@ page('/manage-messages', function (ctx, next) {
         .add('admin-client:navigation')
         //.add('breadcrumb')
         .area('#middle')
-        .add('admin-client:messages', {query: ctx.query})
+        .add('admin-client:messages-find', {query: ctx.query})
         .area('#footer')
         .add('footer')
         .render(ctx, next);
