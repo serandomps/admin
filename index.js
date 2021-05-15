@@ -2,6 +2,7 @@ var dust = require('dust')();
 
 var serand = require('serand');
 var utils = require('utils');
+var watcher = require('watcher');
 var uready = require('uready');
 var auth = require('auth');
 var page = serand.page;
@@ -22,7 +23,7 @@ var can = function (permission) {
         if (ctx.token) {
             return next();
         }
-        utils.emit('user', 'login', ctx.path);
+        watcher.emit('user', 'login', ctx.path);
     };
 };
 
@@ -40,9 +41,9 @@ page('/auth', function (ctx, next) {
         refresh: sera.refresh
     };
     if (o.username) {
-        return utils.emit('user', 'initialize', o);
+        return watcher.emit('user', 'initialize', o);
     }
-    utils.emit('user', 'logged out');
+    watcher.emit('user', 'logged out');
 });
 
 page('/', function (ctx, next) {
@@ -474,14 +475,14 @@ page('/pages/:id/review', function (ctx, next) {
 
 //TODO: redirect user to login page when authentication is needed
 //TODO: basically a front controller pattern
-utils.on('user', 'login', function (path) {
+watcher.on('user', 'login', function (path) {
     if (!path) {
         path = serand.path();
     }
     serand.persist('state', {
         path: path
     });
-    utils.emit('user', 'authenticator', {
+    watcher.emit('user', 'authenticator', {
         type: 'serandives',
         location: loginUri
     }, function (err, uri) {
@@ -489,14 +490,14 @@ utils.on('user', 'login', function (path) {
     });
 });
 
-utils.on('user', 'logged in', function (usr) {
+watcher.on('user', 'logged in', function (usr) {
     var state = serand.persist('state', null);
     redirect(state && state.path || '/');
 });
 
-utils.on('user', 'logged out', function (usr) {
+watcher.on('user', 'logged out', function (usr) {
     var state = serand.persist('state', null);
     redirect(state && state.path || '/');
 });
 
-utils.emit('serand', 'ready');
+watcher.emit('serand', 'ready');
